@@ -1,3 +1,4 @@
+name             'rightscale'
 maintainer       "RightScale, Inc."
 maintainer_email "support@rightscale.com"
 license          "Copyright RightScale, Inc. All rights reserved."
@@ -10,22 +11,22 @@ supports "centos"
 supports "redhat"
 supports "amazon"
 
-recipe "chef-rightscale::default",
+recipe "rightscale::default",
   "Installs the utilities that are required for RightScale support."
 
-recipe "chef-rightscale::setup_monitoring",
+recipe "rightscale::setup_monitoring",
   "Installs and configures RightScale dashboard monitoring features."
 
-recipe "chef-rightscale::setup_ssh",
+recipe "rightscale::setup_ssh",
   "Installs the private ssh key."
 
-recipe "chef-rightscale::setup_hostname",
+recipe "rightscale::setup_hostname",
   "Sets the system hostname."
 
-recipe "chef-rightscale::setup_timezone",
+recipe "rightscale::setup_timezone",
   "Sets the system timezone."
 
-recipe "chef-rightscale::setup_server_tags",
+recipe "rightscale::setup_server_tags",
   "Sets machine tags that are common to all RightScale managed servers."
 
 attribute "rightscale/timezone",
@@ -110,8 +111,8 @@ attribute "rightscale/timezone",
   ],
   :default => "UTC",
   :recipes => [
-    "chef-rightscale::setup_timezone",
-    "chef-rightscale::default"
+    "rightscale::setup_timezone",
+    "rightscale::default"
   ]
 
 attribute "rightscale/process_list",
@@ -122,8 +123,8 @@ attribute "rightscale/process_list",
   :required => "optional",
   :default => "",
   :recipes => [
-    "chef-rightscale::setup_monitoring",
-    "chef-rightscale::default"
+    "rightscale::setup_monitoring",
+    "rightscale::default"
   ]
 
 attribute "rightscale/process_match_list",
@@ -136,8 +137,8 @@ attribute "rightscale/process_match_list",
   :required => "optional",
   :default => "",
   :recipes => [
-    "chef-rightscale::setup_monitoring",
-    "chef-rightscale::default"
+    "rightscale::setup_monitoring",
+    "rightscale::default"
   ]
 
 attribute "rightscale/private_ssh_key",
@@ -149,7 +150,7 @@ attribute "rightscale/private_ssh_key",
     " Example: key:my_key",
   :required => "required",
   :recipes => [
-    "chef-rightscale::setup_ssh"
+    "rightscale::setup_ssh"
   ]
 
 attribute "rightscale/short_hostname",
@@ -159,7 +160,7 @@ attribute "rightscale/short_hostname",
     " Example: myhost",
   :required => "required",
   :recipes => [
-    "chef-rightscale::setup_hostname"
+    "rightscale::setup_hostname"
   ]
 
 attribute "rightscale/domain_name",
@@ -170,7 +171,7 @@ attribute "rightscale/domain_name",
   :required => "optional",
   :default => "",
   :recipes => [
-    "chef-rightscale::setup_hostname"
+    "rightscale::setup_hostname"
   ]
 
 attribute "rightscale/search_suffix",
@@ -181,7 +182,7 @@ attribute "rightscale/search_suffix",
   :required => "optional",
   :default => "",
   :recipes => [
-    "chef-rightscale::setup_hostname"
+    "rightscale::setup_hostname"
   ]
 
 
