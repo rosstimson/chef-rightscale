@@ -8,7 +8,7 @@ version          "13.5.0"
 
 supports "centos"
 supports "redhat"
-supports "ubuntu"
+supports "amazon"
 
 recipe "rightscale::default",
   "Installs the utilities that are required for RightScale support."

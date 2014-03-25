@@ -35,7 +35,7 @@ when "ubuntu"
   when /^12\..+/
     default[:rightscale][:collectd_lib] = "/usr/lib/collectd"
   end
-when "centos", "redhat"
+when "centos", "redhat", "amazon"
   default[:rightscale][:collectd_packages] = ["collectd"]
   default[:rightscale][:collectd_config] = "/etc/collectd.conf"
   default[:rightscale][:collectd_plugin_dir] = "/etc/collectd.d"

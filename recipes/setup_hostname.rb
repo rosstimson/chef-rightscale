@@ -100,7 +100,7 @@ end
 
 # Call hostname command.
 log "  Setting hostname."
-if platform?('centos', 'redhat')
+if platform?('centos', 'redhat', 'amazon')
   bash "set_hostname" do
     flags "-ex"
     code <<-EOH
