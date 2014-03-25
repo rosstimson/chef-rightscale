@@ -1,0 +1,43 @@
+#
+# Cookbook Name:: rightscale
+#
+# Copyright RightScale, Inc. All rights reserved.
+# All access and use subject to the RightScale Terms of Service available at
+# http://www.rightscale.com/terms.php and, if applicable, other agreements
+# such as a RightScale Master Subscription Agreement.
+#
+# Managed by RightScale
+# DO NOT EDIT BY HAND
+#
+
+#
+# Config file for collectd, version 4.
+#
+Hostname  "<%= @instance_uuid %>"
+Interval  20
+ReadThreads 5
+
+LoadPlugin syslog
+<Plugin syslog>
+  LogLevel info
+</Plugin>
+
+LoadPlugin network
+<Plugin network>
+  Server "<%= @sketchy_hostname %>" "3011"
+</Plugin>
+
+LoadPlugin interface
+<Plugin interface>
+  Interface "eth0"
+</Plugin>
+
+<% @plugin_list_array.each do |plugin| -%>
+LoadPlugin <%= plugin %>
+<% end %>
+
+# Use multiple types.db
+TypesDB "/usr/share/collectd/types.db"
+
+# Recursively includes all files within that directory and its subdirectories.
+Include "<%= @collectd_plugin_dir %>/*"
