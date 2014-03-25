@@ -45,13 +45,6 @@ packages.each do |p|
   end
 end
 
-# If APT, pin this package version so it can't be updated.
-cookbook_file "/etc/apt/preferences.d/00rightscale" do
-  only_if { node[:platform] == "ubuntu" }
-  source "apt.preferences.rightscale"
-  mode 0644
-end
-
 # If YUM, lock this collectd package so it can't be updated.
 if node[:platform] =~ /redhat|centos/
   lockfile = "/etc/yum.repos.d/Epel.repo"

@@ -10,9 +10,6 @@ supports "centos"
 supports "redhat"
 supports "ubuntu"
 
-depends "driveclient"
-depends "cloudmonitoring"
-
 recipe "rightscale::default",
   "Installs the utilities that are required for RightScale support."
 
@@ -30,34 +27,6 @@ recipe "rightscale::setup_timezone",
 
 recipe "rightscale::setup_server_tags",
   "Sets machine tags that are common to all RightScale managed servers."
-
-recipe "rightscale::setup_cloud",
-  "Sets up cloud specific functions."
-
-recipe "rightscale::install_tools",
-  "Installs RightScale's instance tools."
-
-recipe "rightscale::install_mysql_collectd_plugin",
-  "Installs the mysql collectd plugin for monitoring support."
-
-recipe "rightscale::install_file_stats_collectd_plugin",
-  "Installs the file-stats.rb collectd plugin for monitoring support." +
-  " It is also used for mysql binary backup alerting."
-
-recipe "rightscale::do_security_updates",
-  "Do a system package update to pull in the latest security patches."
-
-recipe "rightscale::setup_security_updates",
-  "Sets up package manager software for security updates."
-
-recipe "rightscale::setup_security_update_monitoring",
-  "Sets up collectd plugin to monitor for available security updates."
-
-recipe "rightscale::install_rightimage_extras",
-  "Installs the RightImage extra packages expected by our ServerTemplates."
-
-recipe "rightscale::setup_redhat",
-  "Registers a system with the Red Hat Network Classic."
 
 attribute "rightscale/security_updates",
   :display_name => "Enable security updates",
