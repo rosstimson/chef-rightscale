@@ -10,36 +10,23 @@ supports "centos"
 supports "redhat"
 supports "amazon"
 
-recipe "rightscale::default",
+recipe "chef-rightscale::default",
   "Installs the utilities that are required for RightScale support."
 
-recipe "rightscale::setup_monitoring",
+recipe "chef-rightscale::setup_monitoring",
   "Installs and configures RightScale dashboard monitoring features."
 
-recipe "rightscale::setup_ssh",
+recipe "chef-rightscale::setup_ssh",
   "Installs the private ssh key."
 
-recipe "rightscale::setup_hostname",
+recipe "chef-rightscale::setup_hostname",
   "Sets the system hostname."
 
-recipe "rightscale::setup_timezone",
+recipe "chef-rightscale::setup_timezone",
   "Sets the system timezone."
 
-recipe "rightscale::setup_server_tags",
+recipe "chef-rightscale::setup_server_tags",
   "Sets machine tags that are common to all RightScale managed servers."
-
-attribute "rightscale/security_updates",
-  :display_name => "Enable security updates",
-  :description => "Unfreezes software repositories after booting and" +
-    " installing packages, allowing for security updates to be installed.",
-  :required => "optional",
-  :choice => [ "enable", "disable" ],
-  :default => "disable",
-  :recipes => [
-    "rightscale::do_security_updates",
-    "rightscale::setup_security_updates",
-    "rightscale::setup_security_update_monitoring"
-  ]
 
 attribute "rightscale/timezone",
   :display_name => "Timezone",
@@ -123,8 +110,8 @@ attribute "rightscale/timezone",
   ],
   :default => "UTC",
   :recipes => [
-    "rightscale::setup_timezone",
-    "rightscale::default"
+    "chef-rightscale::setup_timezone",
+    "chef-rightscale::default"
   ]
 
 attribute "rightscale/process_list",
@@ -135,9 +122,8 @@ attribute "rightscale/process_list",
   :required => "optional",
   :default => "",
   :recipes => [
-    "rightscale::install_mysql_collectd_plugin",
-    "rightscale::setup_monitoring",
-    "rightscale::default"
+    "chef-rightscale::setup_monitoring",
+    "chef-rightscale::default"
   ]
 
 attribute "rightscale/process_match_list",
@@ -150,9 +136,8 @@ attribute "rightscale/process_match_list",
   :required => "optional",
   :default => "",
   :recipes => [
-    "rightscale::install_mysql_collectd_plugin",
-    "rightscale::setup_monitoring",
-    "rightscale::default"
+    "chef-rightscale::setup_monitoring",
+    "chef-rightscale::default"
   ]
 
 attribute "rightscale/private_ssh_key",
@@ -164,7 +149,7 @@ attribute "rightscale/private_ssh_key",
     " Example: key:my_key",
   :required => "required",
   :recipes => [
-    "rightscale::setup_ssh"
+    "chef-rightscale::setup_ssh"
   ]
 
 attribute "rightscale/short_hostname",
@@ -174,7 +159,7 @@ attribute "rightscale/short_hostname",
     " Example: myhost",
   :required => "required",
   :recipes => [
-    "rightscale::setup_hostname"
+    "chef-rightscale::setup_hostname"
   ]
 
 attribute "rightscale/domain_name",
@@ -185,7 +170,7 @@ attribute "rightscale/domain_name",
   :required => "optional",
   :default => "",
   :recipes => [
-    "rightscale::setup_hostname"
+    "chef-rightscale::setup_hostname"
   ]
 
 attribute "rightscale/search_suffix",
@@ -196,69 +181,9 @@ attribute "rightscale/search_suffix",
   :required => "optional",
   :default => "",
   :recipes => [
-    "rightscale::setup_hostname"
+    "chef-rightscale::setup_hostname"
   ]
 
-attribute "rightscale/rackspace_username",
-  :display_name => "Rackspace Username",
-  :description =>
-    "The username for Rackspace cloud account. This is required for" +
-    " registering instances with Rackspace Managed Cloud.",
-  :required => "optional",
-  :default => "",
-  :recipes => [
-    "rightscale::default",
-    "rightscale::setup_cloud"
-  ]
-
-attribute "rightscale/rackspace_api_key",
-  :display_name => "Rackspace API Key",
-  :description =>
-    "The API Key for Rackspace cloud account. This is required for" +
-    " registering instances with Rackspace Managed Cloud.",
-  :required => "optional",
-  :default => "",
-  :recipes => [
-    "rightscale::default",
-    "rightscale::setup_cloud"
-  ]
-
-attribute "rightscale/rackspace_tenant_id",
-  :display_name => "Rackspace Tenant ID",
-  :description =>
-    "The tenant ID for Rackspace cloud account. This is required for" +
-    " registering instances with Rackspace Managed Cloud.",
-  :required => "optional",
-  :default => "",
-  :recipes => [
-    "rightscale::default",
-    "rightscale::setup_cloud"
-  ]
-
-attribute "rightscale/redhat/username",
-  :display_name => "RedHat Network Username",
-  :description =>
-    "The username to register the system with under RHN Satellite or Red Hat" +
-    " Network Classic. Example: cred:REDHAT_SUBSCRIBER_USERNAME",
-  :required => "optional",
-  :default => "",
-  :recipes => [
-    "rightscale::default",
-    "rightscale::setup_redhat"
-  ]
-
-attribute "rightscale/redhat/password",
-  :display_name => "RedHat Network Password",
-  :description =>
-    "The password associated with the username specified in the" +
-    " rightscale/redhat/username input." +
-    " Example: cred:REDHAT_SUBSCRIBER_PASSWORD",
-  :required => "optional",
-  :default => "",
-  :recipes => [
-    "rightscale::default",
-    "rightscale::setup_redhat"
-  ]
 
 # RightScale ENV attributes.
 #
