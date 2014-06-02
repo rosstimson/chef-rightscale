@@ -19,7 +19,7 @@ node[:rightscale][:process_list_array] = node[:rightscale][:process_list].split 
 #
 package "librrd4" if node[:platform] == 'ubuntu'
 
-installed_ver = (node[:platform] =~ /redhat|centos|amazon/) ? `rpm -q --queryformat %{VERSION} collectd`.strip : `dpkg-query --showformat='${Version}' -W collectd`.strip
+installed_ver = (if platform_family?('rhel')) ? `rpm -q --queryformat %{VERSION} collectd`.strip : `dpkg-query --showformat='${Version}' -W collectd`.strip
 installed = (installed_ver == "") ? false : true
 log "  Collectd package not installed" unless installed
 log "  Checking installed collectd version: installed #{installed_ver}" if installed
@@ -46,7 +46,7 @@ packages.each do |p|
 end
 
 # If YUM, lock this collectd package so it can't be updated.
-if node[:platform] =~ /redhat|centos|amazon/
+if platform_family?('rhel')
   lockfile = "/etc/yum.repos.d/Epel.repo"
   bash "Lock package - YUM" do
     flags "-ex"
@@ -111,7 +111,7 @@ end
 
 # Patch collectd init script, so it uses collectdmon.
 # Only needed for CentOS, Ubuntu already does this out of the box.
-if node[:platform] =~ /redhat|centos|amazon/
+if platform_family('rhel')
   cookbook_file "/etc/init.d/collectd" do
     source "collectd-init-centos-with-monitor"
     mode "0755"

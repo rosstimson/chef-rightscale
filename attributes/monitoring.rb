@@ -25,16 +25,6 @@ default[:rightscale][:process_list] = ""
 default[:rightscale][:process_list_array] = []
 
 case platform
-when "ubuntu"
-  default[:rightscale][:collectd_packages] = ["collectd", "collectd-core", "collectd-utils", "libcollectdclient0"]
-  default[:rightscale][:collectd_config] = "/etc/collectd/collectd.conf"
-  default[:rightscale][:collectd_plugin_dir] = "/etc/collectd/conf"
-  case platform_version
-  when /^10\..+/
-    default[:rightscale][:collectd_packages_version] = "4.10.1-2"
-  when /^12\..+/
-    default[:rightscale][:collectd_lib] = "/usr/lib/collectd"
-  end
 when "centos", "redhat", "amazon"
   default[:rightscale][:collectd_packages] = ["collectd"]
   default[:rightscale][:collectd_config] = "/etc/collectd.conf"
